@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OOP_2._1
+namespace OOP
 {
-    class ORDER
+    class Order
     {
     }
 }

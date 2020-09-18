@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OOP_2._1
+namespace OOP
 {
     class Package : Deliveryman
     {
-        public Package(int speed, int maxdistance)
+        public Package(int nextId, string name, int status, int speed, int maxdistance) 
+            : base(nextId, name, status, speed, maxdistance)
         {
-            speed = 10;
-            maxdistance = 0;
+            Speed = 10;
+            MaxDistance = 0;
         }
     }
 }

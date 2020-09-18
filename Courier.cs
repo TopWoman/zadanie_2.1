@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OOP_2._1
+namespace OOP
 {
     class Courier : Deliveryman
     {
-        public Courier(int speed, int maxdistance) 
-        {
-            speed = 10;
-            maxdistance = 50;
-        }
+        public Courier(int nextId, string name, int status, int speed, int maxdistance) 
+              : base(nextId, name, status, speed, maxdistance)
+          {
+            Speed = 10;
+            MaxDistance = 50;
+          } 
+
     }
 }
