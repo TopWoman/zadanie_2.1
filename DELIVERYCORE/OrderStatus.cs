@@ -4,7 +4,10 @@ using System.Text;
 
 namespace OOP
 {
-    class Order
+    enum OrderStatus
     {
+        Accepted,
+        Performed,
+        Completed
     }
 }

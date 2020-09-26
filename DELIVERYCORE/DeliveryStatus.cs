@@ -4,11 +4,11 @@ using System.Text;
 
 namespace OOP
 {
-    
-        enum status
+        enum DeliveryStatus
         {
             Expectation,
             DuringDelivery,
-            CompletedOrder
+            CompletedOrder,
+            NotWorking
         }
 }
