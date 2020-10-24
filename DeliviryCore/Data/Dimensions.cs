@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OOP
+namespace DeliveryCore.Data
 {
     class Dimensions
     {
         private double height;
-        private double Height //высота
+        public double Height //высота
         { 
             get => height; 
             set
@@ -17,7 +17,7 @@ namespace OOP
             }
         }
         private double length;
-        private double Length // длина
+        public double Length // длина
         {
             get => length;
             set
@@ -27,7 +27,7 @@ namespace OOP
             }
         }
         private double width;
-        private double Width // ширина
+        public double Width // ширина
         { 
             get => width; 
             set
@@ -36,7 +36,10 @@ namespace OOP
                 else width = value;
             }
         } 
-
+        public double Volume
+        {
+            get => Height * Length * Width;
+        }
         public Dimensions (double height, double length, double width )
         {
             Height = height;

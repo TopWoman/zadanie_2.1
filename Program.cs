@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OOP
+namespace DeliveryCore
 {
     class Program
     {

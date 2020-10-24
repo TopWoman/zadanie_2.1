@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace OOP
+namespace DeliveryCore.Data
 {
     class Machine : Deliveryman
     {
         private readonly double CarryingCapacity; //грузоподъемность
         private readonly double Volume; // вместительность (объём)
-        private string Number { get; set; } // номер
-        private List<Product> Products { get; set; }
+        private readonly string Number; // номер
+        private List<Order> Orders { get; set; }
+
+        public CourierDriver Driver { get; set; }
 
         private static int nextId;
         private readonly int id;
@@ -47,32 +49,48 @@ namespace OOP
             CarryingCapacity = carryingcapacity;
             Volume = volume;
             Number = number;
-            Products = new List<Product>();
+            Orders = new List<Order>();
         }
 
-        public double CurrentCarryingCapacity
+        public double CurrentCarryingCapacity // текущая грузоподъемность
         {
-            get; //допишу!!!
-            private set
+            get; 
+            private set;
+        }
+
+        public double CurrentVolume // текущий объем
+        {
+            get;
+            private set;
+        }
+        public void AddProduct (Order order)
+        {
+            if (order != null)
             {
-                   
+                if ((CarryingCapacity - CurrentCarryingCapacity) > order.Weight &&
+                (Volume - CurrentVolume) > order.Volume)
+                {
+                    Orders.Add(order);
+                    CurrentCarryingCapacity += order.Weight;
+                    CurrentVolume += order.Volume;
+                }
             }
         }
 
-        public void Adding (Product product)
+        public void DeletingProduct (Order order)
         {
-            Products.Add(product);
-            CurrentCarryingCapacity += product.Weight;
-        }
-
-        public void Deleting (Product product)
-        {
-            //ПОТОМ!
+            if (order != null)
+            {
+                Orders.Remove(order);
+                CurrentCarryingCapacity -= order.Weight;
+                CurrentVolume -= order.Volume;
+            }
         }
 
         public override void Deliver(Order order)
         {
             throw new NotImplementedException();
         }
+
     }
 }
