@@ -13,7 +13,7 @@ namespace DeliveryCore.Data
         public string Address2 { get; set; } // адрес 2
 
         public readonly DateTime OrderCreationDate; //дата создания заказа
-        public DateTime OrderCompletionDate { get; private set; } //дата выполнения заказа
+        public DateTime OrderCompletionDate { get; set; } //дата выполнения заказа
         public double weight; //вес
         public double Weight //вес
         {
@@ -34,7 +34,7 @@ namespace DeliveryCore.Data
         }
         private static int nextId;
         public readonly int ID;
-        private List<Product> Products { get; set; } = new List<Product>();// список товаров (коллекция)
+        public List<Product> Products { get; set; } = new List<Product>();// список товаров (коллекция)
         public double Volume 
         {
             get
@@ -61,7 +61,7 @@ namespace DeliveryCore.Data
         public OrderStatus Status { get; set; } // статус
         public bool IsFragile { get; set; } // хрупкий или нет
 
-        public Order(Client client, string address1, string address2, double weight, Product product,
+        public Order(Client client, string address1, string address2, double weight,
                     double distance, OrderStatus status, bool isfragile)
         {
             Client = client;
@@ -75,9 +75,5 @@ namespace DeliveryCore.Data
             OrderCreationDate = DateTime.UtcNow;
         }
 
-        public void CompleteOrder()
-        {
-            OrderCompletionDate = DateTime.UtcNow;
-        }
     }
 }

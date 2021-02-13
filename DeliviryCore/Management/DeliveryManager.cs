@@ -3,13 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeliveryCore.DeliviryCore.Management
+namespace DeliveryCore.Management
 {
     class DeliveryManager
     {
         public Dictionary<int, Courier> couriers;
         public Dictionary<int, CourierDriver> courierdrivers;
         public Dictionary<int, Machine> machines;
+
+
+        public DeliveryManager()
+        {
+            couriers = new Dictionary<int, Courier>();
+            courierdrivers = new Dictionary<int, CourierDriver>();
+            machines = new Dictionary<int, Machine>();
+        }
+
 
         public Courier AddCourier(string name, DeliveryStatus status, int speed, int maxdistance)
         {

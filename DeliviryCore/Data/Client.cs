@@ -10,9 +10,9 @@ namespace DeliveryCore.Data
         private static int nextId;
         private readonly int id;
         public virtual int ID => id;
-        public string Name { get; }
-        public string Address { get; }
-        public string Number { get; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Number { get; set; }
 
         public Client(string name, string address, string number) 
         {

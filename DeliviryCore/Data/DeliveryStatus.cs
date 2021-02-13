@@ -8,7 +8,6 @@ namespace DeliveryCore.Data
         {
             Expectation,
             DuringDelivery,
-            CompletedOrder,
             NotWorking
         }
 }
