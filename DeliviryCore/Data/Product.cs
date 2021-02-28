@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeliveryCore.Data
 {
-    class Product
+    public class Product
     {
         public string Name;
         private double weight;

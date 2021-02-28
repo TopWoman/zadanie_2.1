@@ -34,7 +34,12 @@ namespace DeliveryCore.Data
         }
         private static int nextId;
         public readonly int ID;
+
+        //----------------------------------------------------------------------------------------------///
+        //Поменять это на OrderLine. Везде, где надо сделать замену.
         public List<Product> Products { get; set; } = new List<Product>();// список товаров (коллекция)
+
+        //----------------------------------------------------------------------------------------------///
         public double Volume 
         {
             get

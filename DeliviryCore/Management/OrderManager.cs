@@ -29,6 +29,12 @@ namespace DeliveryCore.Management
             return newASS;
         }
 
+        //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет id.
+        public void AddOrderLine(int orderID, Product product, int count)
+        {
+
+        }
+
         public void CancelOrder(int ID) // метод отмены заказа
         {
             if (assemblys.ContainsKey(ID) && assemblys[ID].Status == OrderStatus.Assemblys) 
