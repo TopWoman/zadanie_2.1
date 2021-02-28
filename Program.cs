@@ -8,11 +8,15 @@ namespace DeliveryCore
     {
         static void Main(string[] args)
         {
+
+
+
             ClientManager clientManager = new ClientManager();
             DeliveryManager deliveryManager = new DeliveryManager();
             OrderManager orderManager = new OrderManager();
 
-            clientManager.AddClient("Artem", "cvgcffcdcfr", "876543");
+            
+            Client Artem = clientManager.AddClient("Artem", "cvgcffcdcfr", "876543");
             clientManager.AddClient("ADWAtem", "cvgcffcdcfr", "876543");
             clientManager.AddClient("ASEFGHJtem", "cvgcffcdcfr", "876543");
 
@@ -20,16 +24,15 @@ namespace DeliveryCore
             deliveryManager.AddCourier("gfds", DeliveryStatus.Expectation, 15, 50);
             deliveryManager.AddCourier("gfds", DeliveryStatus.Expectation, 15, 50);
 
-            orderManager.AddOrder(clientManager.clients[1], "rew", "ytr", 12,  9, OrderStatus.Accepted, false);
-            orderManager.assemblys[1].Products.Add(new Product("5432", 34, false, new Dimensions(1, 1, 1)));
-            orderManager.assemblys[1].Products.Add(new Product("Dildo Dashy", 34, false, new Dimensions(1, 1, 1)));
-            orderManager.AddOrder(clientManager.clients[2], "rtw", "ytr", 12,  9, OrderStatus.Accepted, false);
-            orderManager.assemblys[2].Products.Add(new Product("5432", 34, false, new Dimensions(1, 1, 1)));
-            orderManager.AddOrder(clientManager.clients[3], "ytrw", "ytr", 12, 9, OrderStatus.Accepted, false);
-            orderManager.assemblys[3].Products.Add(new Product("5432", 34, false, new Dimensions(1, 1, 1)));
+            Order order1 = orderManager.AddOrder(Artem, "[f[f[f[", "[f[[f[ff[", 12, 30, OrderStatus.Accepted, true);
+
+            ProductManager productManager = new ProductManager();
+            Product Tort = productManager.AddProduct("tort", 1, true, new Dimensions(12, 13, 14));
+            order1.AddOrderLine(Tort, 5);
 
 
-         
+            
+
         
             Console.WriteLine("КЛИЕНТЫ \n");
             foreach (var item in clientManager.clients)
@@ -52,9 +55,9 @@ namespace DeliveryCore
                     $"Дист - {item.Value.Distance}, Статус - {item.Value.Status}, " +
                     $"ISF  - {item.Value.IsFragile} " +
                     $"НЕПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
-                foreach (var pr in item.Value.Products)
+                foreach (var pr in item.Value.OrderLines)
                 {
-                    Console.WriteLine($"\t {pr.Name}, {pr.Weight}");
+                    Console.WriteLine($"\t {pr.Product.Name}, {pr.Product.Weight}, {pr.Count}");
                 }
             } 
 
@@ -70,10 +73,10 @@ namespace DeliveryCore
                     $"Адрес2 - {item.Value.Address2}, вес - {item.Value.Weight}, " +
                     $"Дист - {item.Value.Distance}, Статус - {item.Value.Status}, " +
                     $"ISF  - {item.Value.IsFragile} " +
-                    $"НЕПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
-                foreach (var pr in item.Value.Products)
+                    $"ПОНЯТНОШТОДАТА - {item.Value.OrderCreationDate} ");
+                foreach (var pr in item.Value.OrderLines)
                 {
-                    Console.WriteLine($"\t {pr.Name}, {pr.Weight}");
+                    Console.WriteLine($"\t {pr.Product.Name}, {pr.Product.Weight}, {pr.Count}");
                 }
             }
 
@@ -84,10 +87,10 @@ namespace DeliveryCore
                     $"Адрес2 - {item.Value.Address2}, вес - {item.Value.Weight}, " +
                     $"Дист - {item.Value.Distance}, Статус - {item.Value.Status}, " +
                     $"ISF  - {item.Value.IsFragile} " +
-                    $"НЕПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
-                foreach (var pr in item.Value.Products)
+                    $"ПОНЯТНОШТОДАТА - {item.Value.OrderCreationDate} ");
+                foreach (var pr in item.Value.OrderLines)
                 {
-                    Console.WriteLine($"\t {pr.Name}, {pr.Weight}");
+                    Console.WriteLine($"\t {pr.Product.Name}, {pr.Product.Weight}, {pr.Count}");
                 }
             }
 
@@ -100,10 +103,10 @@ namespace DeliveryCore
                     $"Адрес2 - {item.Value.Address2}, вес - {item.Value.Weight}, " +
                     $"Дист - {item.Value.Distance}, Статус - {item.Value.Status}, " +
                     $"ISF  - {item.Value.IsFragile} " +
-                    $"НЕПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
-                foreach (var pr in item.Value.Products)
+                    $"ПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
+                foreach (var pr in item.Value.OrderLines)
                 {
-                    Console.WriteLine($"\t {pr.Name}, {pr.Weight}");
+                    Console.WriteLine($"\t {pr.Product.Name}, {pr.Product.Weight}, {pr.Count}");
                 }
             }
 
@@ -114,10 +117,10 @@ namespace DeliveryCore
                     $"Адрес2 - {item.Value.Address2}, вес - {item.Value.Weight}, " +
                     $"Дист - {item.Value.Distance}, Статус - {item.Value.Status}, " +
                     $"ISF  - {item.Value.IsFragile} " +
-                    $"НЕПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
-                foreach (var pr in item.Value.Products)
+                    $"ПОНЯТНОШТОДАША - {item.Value.OrderCreationDate} ");
+                foreach (var pr in item.Value.OrderLines)
                 {
-                    Console.WriteLine($"\t {pr.Name}, {pr.Weight}");
+                    Console.WriteLine($"\t {pr.Product.Name}, {pr.Product.Weight}, {pr.Count}");
                 }
             }
             Console.WriteLine("ЗАВЕРШЕННЫЕ ЗАКАЗЫ");
@@ -127,11 +130,13 @@ namespace DeliveryCore
                     $"Адрес2 - {item.Value.Address2}, вес - {item.Value.Weight}, " +
                     $"Дист - {item.Value.Distance}, Статус - {item.Value.Status}, " +
                     $"ISF  - {item.Value.IsFragile} " +
-                    $"НЕПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
-                foreach (var pr in item.Value.Products)
+                    $"ПОНЯТНОШТО - {item.Value.OrderCreationDate} ");
+                foreach (var pr in item.Value.OrderLines)
                 {
-                    Console.WriteLine($"\t {pr.Name}, {pr.Weight}");
+                    Console.WriteLine($"\t {pr.Product.Name}, {pr.Product.Weight}, {pr.Count}");
                 }
+
+
             }
         }
     }

@@ -20,9 +20,9 @@ namespace DeliveryCore.Data
             get
             {
                 double sum = 0;
-                foreach (var product in Products)
+                foreach (var OrderLine in OrderLines)
                 {
-                    sum += product.Weight;
+                    sum += OrderLine.Product.Weight;
                 }
                 return sum;
             }
@@ -37,7 +37,7 @@ namespace DeliveryCore.Data
 
         //----------------------------------------------------------------------------------------------///
         //Поменять это на OrderLine. Везде, где надо сделать замену.
-        public List<Product> Products { get; set; } = new List<Product>();// список товаров (коллекция)
+        public List<OrderLine> OrderLines { get; set; } = new List<OrderLine>();// список товаров (коллекция)
 
         //----------------------------------------------------------------------------------------------///
         public double Volume 
@@ -45,9 +45,9 @@ namespace DeliveryCore.Data
             get
             {
                 double sum = 0;
-                foreach (var product in Products)
+                foreach (var OrderLine in OrderLines)
                 {
-                    sum += product.Dimensions.Volume;
+                    sum += OrderLine.Product.Dimensions.Volume;
                 }
                 return sum;
             }
@@ -78,6 +78,20 @@ namespace DeliveryCore.Data
             IsFragile = isfragile;
             ID = Interlocked.Increment(ref nextId);
             OrderCreationDate = DateTime.UtcNow;
+        }
+
+        //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет id.
+        //добавление продуктов и их кол-во
+        public void AddOrderLine( Product product, int count)
+        {
+            OrderLine orderLine = new OrderLine()
+            {
+                Product = product,
+                Count = count
+            };
+
+            OrderLines.Add(orderLine);
+
         }
 
     }

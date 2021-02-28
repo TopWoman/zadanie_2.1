@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeliveryCore.Data
 {
-    class Dimensions
+    public class Dimensions
     {
         private double height;
         public double Height //высота
