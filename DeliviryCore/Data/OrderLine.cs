@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DeliveryCore.Data
 {
@@ -10,19 +11,28 @@ namespace DeliveryCore.Data
         /// <summary>
         /// Продукт заказа
         /// </summary>
-        public Product Product { get; set; }
+        public Product Product { get;  set; }
 
         /// <summary>
         /// Количество
         /// </summary>
-        public int Count { get; set; }
+        private int count;
+        public int Count 
+        {
+            get => count;
+            set
+            {
+                if (value > 0) count = value;
+            }
+        }
 
         //Стоимость строки заказа = кол-во * цена продукта.
         public double Cost
         {
             get
             {
-                throw new NotImplementedException();
+                double CountLineOrder = Count * Product.Price;
+                return CountLineOrder;
             }
         }
     }

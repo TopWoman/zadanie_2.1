@@ -19,13 +19,25 @@ namespace DeliveryCore.Data
         }
         public bool IsFragile { get; set; } // галка хрупкий/нехрупкий товар
         public Dimensions Dimensions { get; set; }
-       
-        public Product (string name, double weight, bool isfragile, Dimensions dimensions)
+
+        private double price;
+        public double Price 
+        { 
+            get => price;  
+            set 
+            {
+                if (value < 0) price = 1;
+                else price = value;
+            }
+        }
+
+        public Product (string name, double weight, bool isfragile, Dimensions dimensions, double price)
         {
             Name = name;
             Weight = weight;
             IsFragile = isfragile;
             Dimensions = dimensions;
+            Price = price;
         }
 
     }

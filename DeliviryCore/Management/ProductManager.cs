@@ -21,13 +21,13 @@ namespace DeliveryCore.Management
                 products.Remove(product);
         }
 
-        public Product AddProduct(string name, double weight, bool isfragile, Dimensions dimensions) //добавление продукта
+        public Product AddProduct(string name, double weight, bool isfragile, Dimensions dimensions, double price) //добавление продукта
         {
-            Product newProd = new Product(name, weight, isfragile, dimensions);
+            Product newProd = new Product(name, weight, isfragile, dimensions, price);
             products.Add(newProd);
             return newProd;
         }
-        public void ChangeProduct(int product, Dimensions dimensions, double weight, bool isfragile, string name = "") //изменение продукта
+        public void ChangeProduct(int product, Dimensions dimensions, double weight, bool isfragile, double price, string name = "") //изменение продукта
         {
             if (name != "")
                 products[product].Name = name;
@@ -37,6 +37,8 @@ namespace DeliveryCore.Management
 
             if (products[product].IsFragile != isfragile)
                 products[product].IsFragile = isfragile;
+            if (price > 0)
+                products[product].Price = price;
         }
     }
 }
