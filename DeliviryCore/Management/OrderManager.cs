@@ -25,7 +25,7 @@ namespace DeliveryCore.Management
                     double distance, OrderStatus status, bool isfragile) // метод добавления заказа
         {
             Order newASS = new Order(client, address1, address2, weight, distance, status, isfragile); // создание нового заказа
-            assemblys.Add(newASS.ID, newASS); // добавление id заказа
+            assemblys.Add(newASS.ID, newASS); // добавление ID заказа
             return newASS;
         }
 

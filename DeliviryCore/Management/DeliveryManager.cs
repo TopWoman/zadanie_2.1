@@ -23,7 +23,7 @@ namespace DeliveryCore.Management
         public Courier AddCourier(string name, DeliveryStatus status, int speed, int maxdistance)
         {
             Courier newCO = new Courier(name, status, speed, maxdistance); // создание нового курьера
-            couriers.Add(newCO.ID, newCO); // добавление id курьера
+            couriers.Add(newCO.ID, newCO); // добавление ID курьера
             return newCO;
         }
 
@@ -36,7 +36,7 @@ namespace DeliveryCore.Management
         public CourierDriver AddCourierDriver(string name, DeliveryStatus status, int speed, int maxdistance, string driverlicense)
         {
             CourierDriver newCD = new CourierDriver(name, status, speed, maxdistance, driverlicense); // создание нового водителя
-            courierdrivers.Add(newCD.ID, newCD); // добавление id водителя
+            courierdrivers.Add(newCD.ID, newCD); // добавление ID водителя
             return newCD;
         }
 
@@ -50,7 +50,7 @@ namespace DeliveryCore.Management
                         double volume, double carryingcapacity, string number)
         {
             Machine newMA = new Machine(name, status, speed, maxdistance, volume, carryingcapacity, number); // создание нового 
-            machines.Add(newMA.ID, newMA); // добавление id 
+            machines.Add(newMA.ID, newMA); // добавление ID 
             return newMA;
         }
 

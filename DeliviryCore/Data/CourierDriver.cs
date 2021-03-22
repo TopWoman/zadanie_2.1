@@ -5,14 +5,15 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class CourierDriver : Deliveryman // курьер-водитель
+    class CourierDriver : IDeliveryman // курьер-водитель
     {
         public readonly string DriverLicense; // водительское удостоверение 
-        private static int nextId;
-        private readonly int id;
-        public override int ID => id;
         private int speed;
-        public override int Speed
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public DeliveryStatus Status { get; set; }
+
+        public int Speed
         {
             get => speed;
             set
@@ -22,26 +23,29 @@ namespace DeliveryCore.Data
                 if (value < 0) speed = 0;
             }
         }
-        private int maxdistance;
-        public override int MaxDistance
+        private int _maxDistance;
+        public int MaxDistance
         {
-            get => maxdistance;
+            get => _maxDistance;
             set
             {
-                if (value > 500) maxdistance = 500;
-                if (value <= 500 && value >= 0) maxdistance = value;
-                if (value < 0) maxdistance = 0;
+                if (value > 500) _maxDistance = 500;
+                if (value <= 500 && value >= 0) _maxDistance = value;
+                if (value < 0) _maxDistance = 0;
             }
         }
 
-        public CourierDriver(string name, DeliveryStatus status, int speed, int maxdistance, string driverlicense)
-           : base(name, status, speed, maxdistance)
+        public CourierDriver(string name, DeliveryStatus status, int speed, int maxDistance, string driverlicense)
         {
+            Name = name;
+            Status = status;
+            Speed = speed;
+            MaxDistance = maxDistance;
             DriverLicense = driverlicense;
-            id = Interlocked.Increment(ref nextId);
         }
 
-        public override void Deliver(Order order)
+        //TODO доделать доставку.
+        public void Deliver(Order order)
         {
             throw new NotImplementedException();
         }

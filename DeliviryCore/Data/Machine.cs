@@ -5,65 +5,63 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class Machine : Deliveryman
+    class Machine : IDeliveryman
     {
-        private readonly double CarryingCapacity; //грузоподъемность
-        private readonly double Volume; // вместительность (объём)
-        private readonly string Number; // номер
-        private List<Order> Orders { get; set; }
+        public readonly double CarryingCapacity; //грузоподъемность
+        public readonly double Volume; // вместительность (объём)
+        public readonly string Number; // номер
+        public List<Order> Orders { get; set; }
 
         public CourierDriver Driver { get; set; }
 
-        private static int nextId;
-        private readonly int id;
-        public override int ID => id;
-        public int speed;
-        public override int Speed 
-        { 
-            get => speed; 
-            set 
-            { 
-              if (value > 50) speed = 50;
-              if (value <= 50 && value >= 0) speed = value;
-              if (value < 0) speed = 0;
-            }
-        }
-        public int maxdistance;
-        public override int MaxDistance 
-        { 
-            get => maxdistance; 
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public DeliveryStatus Status { get; set; }
+
+        private int _speed;
+        public int Speed
+        {
+            get => _speed;
             set
             {
-                if (value > 500) maxdistance = 500;
-                if (value <= 500 && value >= 0) maxdistance = value;
-                if (value < 0) maxdistance = 0;
+                if (value > 50) _speed = 50;
+                if (value <= 50 && value >= 0) _speed = value;
+                if (value < 0) _speed = 0;
             }
         }
-        public Machine( string name, DeliveryStatus status, int speed, int maxdistance, 
-                        double volume, double carryingcapacity, string number) 
-                        : base( name, status, speed, maxdistance)
+
+        private int _maxDistance;
+        public int MaxDistance
         {
+            get => _maxDistance;
+            set
+            {
+                if (value > 500) _maxDistance = 500;
+                if (value <= 500 && value >= 0) _maxDistance = value;
+                if (value < 0) _maxDistance = 0;
+            }
+        }
+
+        // текущая грузоподъемность
+        public double CurrentCarryingCapacity { get; private set; }
+
+        // текущий объем
+        public double CurrentVolume { get; private set; }
+
+        public Machine(string name, DeliveryStatus status, int speed, int maxDistance,
+                        double volume, double carryingCapacity, string number)
+        {
+            Name = name;
+            Status = status;
             Speed = speed;
-            MaxDistance = maxdistance;
-            id = Interlocked.Increment(ref nextId);
-            CarryingCapacity = carryingcapacity;
+            MaxDistance = maxDistance;
+            CarryingCapacity = carryingCapacity;
             Volume = volume;
             Number = number;
             Orders = new List<Order>();
         }
 
-        public double CurrentCarryingCapacity // текущая грузоподъемность
-        {
-            get; 
-            private set;
-        }
-
-        public double CurrentVolume // текущий объем
-        {
-            get;
-            private set;
-        }
-        public void AddProduct (Order order)
+        public void AddProduct(Order order)
         {
             if (order != null)
             {
@@ -77,17 +75,19 @@ namespace DeliveryCore.Data
             }
         }
 
-        public void DeletingProduct (Order order)
+        public void DeleteProduct(Order order)
         {
             if (order != null)
             {
+                //TODO добавить проверку на наличие заказа
                 Orders.Remove(order);
                 CurrentCarryingCapacity -= order.Weight;
                 CurrentVolume -= order.Volume;
             }
         }
 
-        public override void Deliver(Order order)
+        //TODO метод доставки
+        public void Deliver(Order order)
         {
             throw new NotImplementedException();
         }

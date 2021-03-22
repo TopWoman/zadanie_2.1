@@ -27,8 +27,8 @@ namespace DeliveryCore
             Order order1 = orderManager.AddOrder(Artem, "[f[f[f[", "[f[[f[ff[", 12, 30, OrderStatus.Accepted, true);
 
             ProductManager productManager = new ProductManager();
-            Product Tort = productManager.AddProduct("tort", 1, true, new Dimensions(12, 13, 14));
-            order1.AddOrderLine(Tort, 5);
+            //Product Tort = productManager.AddProduct("tort", 1, true, new Dimensions(12, 13, 14));
+            //order1.AddOrderLine(Tort, 5);
 
 
             

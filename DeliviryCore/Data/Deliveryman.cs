@@ -8,24 +8,15 @@ namespace DeliveryCore.Data
     /// <summary>
     /// Абстрактный класс
     /// </summary>
-    abstract class Deliveryman
+    interface IDeliveryman
     {
-        public abstract int ID {get;}
+        public int ID { get; set; }
         public string Name { get; set; }
         public DeliveryStatus Status { get; set; }
-        public abstract int Speed { get; set; }
-        public abstract int MaxDistance { get; set; }
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        public Deliveryman(string name, DeliveryStatus status, int speed, int maxdistance)
-        {
-            Name = name;
-            Status = status;
-            Speed = speed;
-            MaxDistance = maxdistance;
-        }
-        public abstract void Deliver(Order order);
+        public int Speed { get; set; }
+        public int MaxDistance { get; set; }
+
+        public void Deliver(Order order);
 
     }
 }

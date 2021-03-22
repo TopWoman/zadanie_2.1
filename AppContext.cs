@@ -11,8 +11,7 @@ namespace DeliveryCore
         public DbSet<Client> Clients { get; set; }
         public DbSet<Courier> Couriers { get; set; }
         public DbSet<CourierDriver> CourierDrivers { get; set; }
-        public DbSet<Deliveryman> Deliverymans { get; set; }
-        public DbSet<Dimensions> Dimensionss { get; set; }
+        public DbSet<Dimensions> Dimensions { get; set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Package> Packages { get; set; }

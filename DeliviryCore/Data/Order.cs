@@ -80,7 +80,7 @@ namespace DeliveryCore.Data
             OrderCreationDate = DateTime.UtcNow;
         }
 
-        //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет id.
+        //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет ID.
         //добавление продуктов и их кол-во
         public void AddOrderLine( Product product, int count)
         {

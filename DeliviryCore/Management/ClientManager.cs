@@ -17,7 +17,7 @@ namespace DeliveryCore.Management
         public Client AddClient (string name, string address, string number) // метод добавления клиента
         {
             Client newCL = new Client(name, address, number); // создание нового клиента
-            clients.Add(newCL.ID, newCL); // добавление id клиента
+            clients.Add(newCL.ID, newCL); // добавление ID клиента
             return newCL;
         }
 

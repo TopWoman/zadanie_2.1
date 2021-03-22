@@ -6,34 +6,36 @@ namespace DeliveryCore.Data
 {
     public class Dimensions
     {
-        private double height;
+        public int ID { get; set; }
+
+        private double _height;
         public double Height //высота
         { 
-            get => height; 
+            get => _height; 
             set
             {
-                if (value < 0) height = 0;
-                else height = value;
+                if (value < 0) _height = 0;
+                else _height = value;
             }
         }
-        private double length;
+        private double _length;
         public double Length // длина
         {
-            get => length;
+            get => _length;
             set
             {
-                if (value < 0) length = 0;
-                else length = value;
+                if (value < 0) _length = 0;
+                else _length = value;
             }
         }
-        private double width;
+        private double _width;
         public double Width // ширина
         { 
-            get => width; 
+            get => _width; 
             set
             {
-                if (value < 0) width = 0;
-                else width = value;
+                if (value < 0) _width = 0;
+                else _width = value;
             }
         } 
         public double Volume

@@ -5,13 +5,14 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class Package : Deliveryman
+    class Package : IDeliveryman
     {
-        private static int nextId;
-        private readonly int id;
-        public override int ID => id;
         public int speed;
-        public override int Speed
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public DeliveryStatus Status { get; set; }
+
+        public int Speed
         {
             get => speed;
             set
@@ -20,26 +21,28 @@ namespace DeliveryCore.Data
                 if (value < 0) speed = 0;
             }
         }
-        public int maxdistance;
-        public override int MaxDistance
+
+        private int _maxDistance;
+        public int MaxDistance
         {
-            get => maxdistance;
+            get => _maxDistance;
             set
             {
-                if (value > 0) maxdistance = 0;
-                if (value < 0) maxdistance = 0;
+                if (value > 0) _maxDistance = 0;
+                if (value < 0) _maxDistance = 0;
             }
         }
 
         public Package(string name, DeliveryStatus status, int speed, int maxdistance) 
-            : base(name, status, speed, maxdistance)
         {
+            Name = name;
+            Status = status;
             Speed = 0;
             MaxDistance = 0;
-            id = Interlocked.Increment(ref nextId);
         }
 
-        public override void Deliver(Order order)
+        //TODO доделать доставку.
+        public void Deliver(Order order)
         {
             throw new NotImplementedException();
         }
