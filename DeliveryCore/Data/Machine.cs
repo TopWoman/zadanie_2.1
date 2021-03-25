@@ -10,11 +10,15 @@ namespace DeliveryCore.Data
         public readonly double CarryingCapacity; //грузоподъемность
         public readonly double Volume; // вместительность (объём)
         public readonly string Number; // номер
+        
+        //TODO сделать таблицу доставки, где будут столбцы: id строки, id курьера, номер заказа.
+        //TODO Данная коллекция должна получать выборку из этой таблицы.
         public List<Order> Orders { get; set; }
 
+        public int DriverId { get; set; }
         public CourierDriver Driver { get; set; }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public DeliveryStatus Status { get; set; }
 

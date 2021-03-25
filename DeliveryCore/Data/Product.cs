@@ -7,35 +7,37 @@ namespace DeliveryCore.Data
     public class Product
     {
         public string Name;
-        private double weight;
+        private double _weight;
         public double Weight
         {
-            get => weight;
+            get => _weight;
             set
             {
-                if (value < 0) weight = 0;
-                else weight = value;
+                if (value < 0) _weight = 0;
+                else _weight = value;
             }
         }
         public bool IsFragile { get; set; } // галка хрупкий/нехрупкий товар
+        
+        public int DimensionsId { get; set; }
         public Dimensions Dimensions { get; set; }
 
-        private double price;
+        private double _price;
         public double Price 
         { 
-            get => price;  
+            get => _price;  
             set 
             {
-                if (value < 0) price = 1;
-                else price = value;
+                if (value < 0) _price = 1;
+                else _price = value;
             }
         }
 
-        public Product (string name, double weight, bool isfragile, Dimensions dimensions, double price)
+        public Product (string name, double weight, bool isFragile, Dimensions dimensions, double price)
         {
             Name = name;
             Weight = weight;
-            IsFragile = isfragile;
+            IsFragile = isFragile;
             Dimensions = dimensions;
             Price = price;
         }

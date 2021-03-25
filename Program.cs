@@ -35,16 +35,16 @@ namespace DeliveryCore
 
         
             Console.WriteLine("КЛИЕНТЫ \n");
-            foreach (var item in clientManager.clients)
+            foreach (var item in clientManager.Сlients)
             {
-                Console.WriteLine($"Имя - {item.Value.Name}, Адрес - {item.Value.Address}, Номер - {item.Value.Number} \n");
+                //Console.WriteLine($"Имя - {item.Value.Name}, Адрес - {item.Value.Address}, Номер - {item.Value.Number} \n");
             }
 
             Console.WriteLine("КУРЬЕРЫ \n");
-            foreach (var item in deliveryManager.couriers)
-            {
-                Console.WriteLine($"Имя - {item.Value.Name}, Статус - {item.Value.Status}, Скорость - {item.Value.Speed}, МаксДис - {item.Value.MaxDistance} \n\n");
-            }
+            //foreach (var item in deliveryManager.couriers)
+            //{
+            //    Console.WriteLine($"Имя - {item.Value.Name}, Статус - {item.Value.Status}, Скорость - {item.Value.Speed}, МаксДис - {item.Value.MaxDistance} \n\n");
+            //}
         
 
             Console.WriteLine("ЗАКАЗЫ \n");

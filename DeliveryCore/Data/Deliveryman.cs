@@ -10,7 +10,7 @@ namespace DeliveryCore.Data
     /// </summary>
     interface IDeliveryman
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public DeliveryStatus Status { get; set; }
         public int Speed { get; set; }

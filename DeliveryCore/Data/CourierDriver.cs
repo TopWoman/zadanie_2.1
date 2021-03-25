@@ -8,19 +8,21 @@ namespace DeliveryCore.Data
     class CourierDriver : IDeliveryman // курьер-водитель
     {
         public readonly string DriverLicense; // водительское удостоверение 
-        private int speed;
-        public int ID { get; set; }
+        private int _speed;
+        public int Id { get; set; }
         public string Name { get; set; }
         public DeliveryStatus Status { get; set; }
 
         public int Speed
         {
-            get => speed;
+            get => _speed;
             set
             {
-                if (value > 50) speed = 50;
-                if (value <= 50 && value >= 0) speed = value;
-                if (value < 0) speed = 0;
+                if (value > 50)
+                    throw new ArgumentException("Value Speed cannot be bigger 50.");
+                if (value < 0)
+                    throw new ArgumentException("Value Speed cannot be less 0.");
+                _speed = value;
             }
         }
         private int _maxDistance;
@@ -29,9 +31,11 @@ namespace DeliveryCore.Data
             get => _maxDistance;
             set
             {
-                if (value > 500) _maxDistance = 500;
-                if (value <= 500 && value >= 0) _maxDistance = value;
-                if (value < 0) _maxDistance = 0;
+                if (value > 500)
+                    throw new ArgumentException("Value MaxDistance cannot be bigger 500.");
+                if (value < 0) 
+                    throw new ArgumentException("Value MaxDistance cannot be less 0.");
+                _maxDistance = value;
             }
         }
 
