@@ -13,7 +13,16 @@ namespace DeliveryCore.Data
         
         //TODO сделать таблицу доставки, где будут столбцы: id строки, id курьера, номер заказа.
         //TODO Данная коллекция должна получать выборку из этой таблицы.
-        public List<Order> Orders { get; set; }
+        public List<Order> Orders
+        {
+            get
+            {
+                using (AppContext dbContext = new AppContext())
+                {
+                    return null;
+                }
+            }
+        }
 
         public int DriverId { get; set; }
         public CourierDriver Driver { get; set; }

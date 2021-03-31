@@ -5,20 +5,23 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
+    /// <summary>
+    /// Почта
+    /// </summary>
     class Package : IDeliveryman
     {
-        public int speed;
+        private int _speed;
         public int Id { get; set; }
         public string Name { get; set; }
         public DeliveryStatus Status { get; set; }
 
         public int Speed
         {
-            get => speed;
+            get => _speed;
             set
             {
-                if (value >= 0) speed = 10;
-                if (value < 0) speed = 0;
+                if (value >= 0) _speed = 10;
+                if (value < 0) _speed = 0;
             }
         }
 
@@ -33,7 +36,7 @@ namespace DeliveryCore.Data
             }
         }
 
-        public Package(string name, DeliveryStatus status, int speed, int maxdistance) 
+        public Package(string name, DeliveryStatus status, int speed, int maxDistance) 
         {
             Name = name;
             Status = status;

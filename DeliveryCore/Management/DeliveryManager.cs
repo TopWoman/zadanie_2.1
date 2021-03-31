@@ -22,11 +22,10 @@ namespace DeliveryCore.Management
 
         public Courier AddCourier(string name, DeliveryStatus status, int speed, int maxDistance)
         {
-            Courier newCO = new Courier(name, status, speed, maxDistance); // создание нового курьера
-
-            _dbContext.Couriers.Add(newCO);
+            Courier courier = new Courier(name, status, speed, maxDistance); // создание нового курьера
+            _dbContext.Couriers.Add(courier);
             _dbContext.SaveChanges();
-            return newCO;
+            return courier;
         }
 
         public void RemoveCourier(int id) // метод удаления курьера
@@ -40,10 +39,10 @@ namespace DeliveryCore.Management
 
         public CourierDriver AddCourierDriver(string name, DeliveryStatus status, int speed, int maxDistance, string driverLicense)
         {
-            CourierDriver newCD = new CourierDriver(name, status, speed, maxDistance, driverLicense); // создание нового водителя
-            _dbContext.CourierDrivers.Add(newCD);
+            CourierDriver courierDriver = new CourierDriver(name, status, speed, maxDistance, driverLicense); // создание нового водителя
+            _dbContext.CourierDrivers.Add(courierDriver);
             _dbContext.SaveChanges();
-            return newCD;
+            return courierDriver;
         }
 
         public void RemoveCourierDriver(int id) // метод удаления водителя
@@ -58,15 +57,14 @@ namespace DeliveryCore.Management
         public Machine AddMachine(string name, DeliveryStatus status, int speed, int maxDistance,
                         double volume, double carryingCapacity, string number)
         {
-            Machine newMA = new Machine(name, status, speed, maxDistance, volume, carryingCapacity, number); // создание нового 
-            _dbContext.Machines.Add(newMA);
+            Machine machine = new Machine(name, status, speed, maxDistance, volume, carryingCapacity, number); // создание нового 
+            _dbContext.Machines.Add(machine);
             _dbContext.SaveChanges();
-            return newMA;
+            return machine;
         }
 
         public void RemoveMachine(int id) // метод удаления 
         {
-            using AppContext _dbContext = new AppContext();
             Machine machineForDeleting = _dbContext.Machines.Find(id);
             if (machineForDeleting == null)
                 throw new ArgumentException($"There is no client with id = {id}");
