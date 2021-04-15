@@ -7,9 +7,7 @@ namespace DeliveryCore.Data
 {
     class Courier : Deliveryman
     {
-        private static int nextId;
-        private readonly int id;
-        public override int ID => id;
+        public int id;
         public int speed;
         public override int Speed
         {
@@ -35,10 +33,9 @@ namespace DeliveryCore.Data
 
         public Courier (string name, DeliveryStatus status, int speed, int maxdistance) 
               : base(name, status, speed, maxdistance)
-          {
+        {
             Speed = 10;
             MaxDistance = 50;
-            id = Interlocked.Increment(ref nextId);
         }
 
         public override void Deliver(Order order)

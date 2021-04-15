@@ -7,9 +7,7 @@ namespace DeliveryCore.Data
 {
     class Client 
     {
-        private static int nextId;
-        private readonly int id;
-        public virtual int ID => id;
+        public int Id;
         public string Name { get; set; }
         public string Address { get; set; }
         public string Number { get; set; }
@@ -19,7 +17,6 @@ namespace DeliveryCore.Data
             Name = name;
             Address = address;
             Number = number;
-            id = Interlocked.Increment(ref nextId);
         }
 
     }
