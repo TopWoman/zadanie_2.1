@@ -27,24 +27,24 @@ namespace DeliveryCore
             Order order1 = orderManager.AddOrder(Artem, "[f[f[f[", "[f[[f[ff[", 12, 30, OrderStatus.Accepted, true);
 
             ProductManager productManager = new ProductManager();
-            Product Tort = productManager.AddProduct("tort", 1, true, new Dimensions(12, 13, 14));
-            order1.AddOrderLine(Tort, 5);
+            //Product Tort = productManager.AddProduct("tort", 1, true, new Dimensions(12, 13, 14));
+            //order1.AddOrderLine(Tort, 5);
 
 
             
 
         
             Console.WriteLine("КЛИЕНТЫ \n");
-            foreach (var item in clientManager.clients)
+            foreach (var item in clientManager.Сlients)
             {
-                Console.WriteLine($"Имя - {item.Value.Name}, Адрес - {item.Value.Address}, Номер - {item.Value.Number} \n");
+                //Console.WriteLine($"Имя - {item.Value.Name}, Адрес - {item.Value.Address}, Номер - {item.Value.Number} \n");
             }
 
             Console.WriteLine("КУРЬЕРЫ \n");
-            foreach (var item in deliveryManager.couriers)
-            {
-                Console.WriteLine($"Имя - {item.Value.Name}, Статус - {item.Value.Status}, Скорость - {item.Value.Speed}, МаксДис - {item.Value.MaxDistance} \n\n");
-            }
+            //foreach (var item in deliveryManager.couriers)
+            //{
+            //    Console.WriteLine($"Имя - {item.Value.Name}, Статус - {item.Value.Status}, Скорость - {item.Value.Speed}, МаксДис - {item.Value.MaxDistance} \n\n");
+            //}
         
 
             Console.WriteLine("ЗАКАЗЫ \n");
