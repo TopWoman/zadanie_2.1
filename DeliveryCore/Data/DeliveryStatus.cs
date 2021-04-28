@@ -4,10 +4,10 @@ using System.Text;
 
 namespace DeliveryCore.Data
 {
-        enum DeliveryStatus
+    public enum DeliveryStatus
         {
-            Expectation,
-            DuringDelivery,
-            NotWorking
+            Expectation, //Ожидание
+            InDelivery,  //Доставляет
+            NotWorking   //Не работает
         }
 }

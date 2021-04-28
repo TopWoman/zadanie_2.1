@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeliveryCore.Data
 {
-    enum OrderStatus
+    public enum OrderStatus
     {
         Accepted,  // принято
         Completed, // выполнен

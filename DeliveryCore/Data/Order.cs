@@ -1,20 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class Order
+    public class Order
     {
 
-        public Client Client { get; set; } // клиент
+        [NotMapped]
+        public Client Client // клиент
+        {
+            get
+            {
+                using (AppContext dbContext = new AppContext())
+                {
+                    return dbContext.Clients.Find(ClientId);
+                }
+            }
+        }
+        public int ClientId { get; set; }
         public string Address1 { get; set; } // адресс1
         public string Address2 { get; set; } // адрес 2
 
         public readonly DateTime OrderCreationDate; //дата создания заказа
         public DateTime OrderCompletionDate { get; set; } //дата выполнения заказа
-        public double weight; //вес
+        private double _weight; //вес
         public double Weight //вес
         {
             get
@@ -28,67 +40,61 @@ namespace DeliveryCore.Data
             }
             set
             {
-                if (value < 0) weight = 0;
-                else weight = value;
+                if (value < 0) _weight = 0;
+                else _weight = value;
             }
         }
-        private static int nextId;
-        public readonly int ID;
+        public int Id { get; set; }
 
         //----------------------------------------------------------------------------------------------///
         //Поменять это на OrderLine. Везде, где надо сделать замену.
         public List<OrderLine> OrderLines { get; set; } = new List<OrderLine>();// список товаров (коллекция)
 
         //----------------------------------------------------------------------------------------------///
-        public double Volume 
+        public double Volume
         {
             get
             {
                 double sum = 0;
-                foreach (var OrderLine in OrderLines)
+                foreach (var orderLine in OrderLines)
                 {
-                    sum += OrderLine.Product.Dimensions.Volume;
+                    sum += orderLine.Product.Volume;
                 }
                 return sum;
             }
         }
 
-        public double distance;
+        private double _distance;
         public double Distance  // расстояние
-        { 
-            get => distance; 
+        {
+            get => _distance;
             set
             {
-                if (value < 0) distance = 0;
-                else distance = value;
+                if (value < 0) _distance = 0;
+                else _distance = value;
             }
         }
         public OrderStatus Status { get; set; } // статус
         public bool IsFragile { get; set; } // хрупкий или нет
 
-        public Order(Client client, string address1, string address2, double weight,
-                    double distance, OrderStatus status, bool isfragile)
+        public Order(int clientId, string address1, string address2, double weight,
+                    double distance, OrderStatus status, bool isFragile)
         {
-            Client = client;
+            ClientId = clientId;
             Address1 = address1;
             Address2 = address2;
             Weight = weight;
             Distance = distance;
             Status = status;
-            IsFragile = isfragile;
-            ID = Interlocked.Increment(ref nextId);
+            IsFragile = isFragile;
             OrderCreationDate = DateTime.UtcNow;
         }
 
         //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет ID.
         //добавление продуктов и их кол-во
-        public void AddOrderLine( Product product, int count)
+        public void AddOrderLine(Product product, int count)
         {
-            OrderLine orderLine = new OrderLine()
-            {
-                Product = product,
-                Count = count
-            };
+            OrderLine orderLine = new OrderLine(product.Id, count);
 
             OrderLines.Add(orderLine);
 

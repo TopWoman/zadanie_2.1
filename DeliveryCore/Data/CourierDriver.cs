@@ -5,9 +5,9 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class CourierDriver : IDeliveryman // курьер-водитель
+    public class CourierDriver : IDeliveryman // курьер-водитель
     {
-        public readonly string DriverLicense; // водительское удостоверение 
+        public string DriverLicense { get; set; }// водительское удостоверение 
         private int _speed;
         public int Id { get; set; }
         public string Name { get; set; }
@@ -39,13 +39,13 @@ namespace DeliveryCore.Data
             }
         }
 
-        public CourierDriver(string name, DeliveryStatus status, int speed, int maxDistance, string driverlicense)
+        public CourierDriver(string name, DeliveryStatus status, int speed, int maxDistance, string driverLicense)
         {
             Name = name;
             Status = status;
             Speed = speed;
             MaxDistance = maxDistance;
-            DriverLicense = driverlicense;
+            DriverLicense = driverLicense;
         }
 
         //TODO доделать доставку.

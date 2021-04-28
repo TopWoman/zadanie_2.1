@@ -8,37 +8,46 @@ namespace DeliveryCore.Management
 {
     class ProductManager
     {
-        public List<Product> products;
+        private readonly AppContext _dbContext;
+        public List<Product> Products => _dbContext.Products.ToList();
 
         public ProductManager()
         {
-            products = new List<Product> ();
+            _dbContext = new AppContext();
         }
 
         public void RemoveProduct(Product product) //удаление продукта
         {
-            if (products.Contains(product))
-                products.Remove(product);
+            if (Products.Contains(product))
+                Products.Remove(product);
         }
 
-        public Product AddProduct(string name, double weight, bool isfragile, Dimensions dimensions, double price) //добавление продукта
+        public Product AddProduct(string name, double weight, bool isFragile, double height,
+            double width, double length, double price) //добавление продукта
         {
-            Product newProd = new Product(name, weight, isfragile, dimensions, price);
-            products.Add(newProd);
+            Product newProd = new Product(name, weight, isFragile, height,
+                 width, length, price);
+            _dbContext.Products.Add(newProd);
+            _dbContext.SaveChanges();
             return newProd;
         }
-        public void ChangeProduct(int product, Dimensions dimensions, double weight, bool isfragile, double price, string name = "") //изменение продукта
+        public void ChangeProduct(int productId, double height,
+            double width, double length, double weight, bool isFragile, double price, string name = "") //изменение продукта
         {
+            Product prodToChange = _dbContext.Products.Find(productId);
+            if (prodToChange == null) throw new ArgumentException($"No product with id = {productId}");
+            
             if (name != "")
-                products[product].Name = name;
+                prodToChange.Name = name;
 
             if (weight > 0)
-                products[product].Weight = weight;
+                prodToChange.Weight = weight;
 
-            if (products[product].IsFragile != isfragile)
-                products[product].IsFragile = isfragile;
+            if (prodToChange.IsFragile != isFragile)
+                prodToChange.IsFragile = isFragile;
             if (price > 0)
-                products[product].Price = price;
+                prodToChange.Price = price;
+            _dbContext.SaveChanges();
         }
     }
 }

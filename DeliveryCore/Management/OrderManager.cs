@@ -24,8 +24,8 @@ namespace DeliveryCore.Management
         public Order AddOrder (Client client, string address1, string address2, double weight,
                     double distance, OrderStatus status, bool isfragile) // метод добавления заказа
         {
-            Order newASS = new Order(client, address1, address2, weight, distance, status, isfragile); // создание нового заказа
-            assemblys.Add(newASS.ID, newASS); // добавление ID заказа
+            Order newASS = new Order(client.Id, address1, address2, weight, distance, status, isfragile); // создание нового заказа
+            assemblys.Add(newASS.Id, newASS); // добавление ID заказа
             return newASS;
         }
 

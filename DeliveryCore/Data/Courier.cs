@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class Courier : IDeliveryman
+    public class Courier : IDeliveryman
     {
         public int Id { get; set; }
         public string Name { get; set; }
