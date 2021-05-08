@@ -5,7 +5,7 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// id текущего доставщик
+        /// id текущего доставщика
         /// </summary>
         public int DeliverId { get; set; }
 

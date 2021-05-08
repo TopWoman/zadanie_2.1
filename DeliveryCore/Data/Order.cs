@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    public class Order
+    public class Order : IOrder
     {
 
         [NotMapped]
@@ -21,11 +21,10 @@ namespace DeliveryCore.Data
             }
         }
         public int ClientId { get; set; }
-        public string Address1 { get; set; } // адресс1
+        public string Address1 { get; set; } // адрес 1
         public string Address2 { get; set; } // адрес 2
+        public DateTime CreateDate { get; set; } //дата создания заказа
 
-        public readonly DateTime OrderCreationDate; //дата создания заказа
-        public DateTime OrderCompletionDate { get; set; } //дата выполнения заказа
         private double _weight; //вес
         public double Weight //вес
         {
@@ -46,11 +45,9 @@ namespace DeliveryCore.Data
         }
         public int Id { get; set; }
 
-        //----------------------------------------------------------------------------------------------///
-        //Поменять это на OrderLine. Везде, где надо сделать замену.
-        public List<OrderLine> OrderLines { get; set; } = new List<OrderLine>();// список товаров (коллекция)
+        //TODO выборка из строк.
+        public List<OrderLine> OrderLines { get; }// список товаров (коллекция)
 
-        //----------------------------------------------------------------------------------------------///
         public double Volume
         {
             get
@@ -87,7 +84,7 @@ namespace DeliveryCore.Data
             Distance = distance;
             Status = status;
             IsFragile = isFragile;
-            OrderCreationDate = DateTime.UtcNow;
+            CreateDate = DateTime.UtcNow;
         }
 
         //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет ID.

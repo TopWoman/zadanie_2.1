@@ -6,6 +6,7 @@ using System.Text;
 
 namespace DeliveryCore.Management
 {
+    //TODO ПЕРЕДЕЛАТЬ ЕГО НАХУЙ ПОЛНОСТЬЮ
     class OrderManager
     {
         public Dictionary<int, Order> assemblys; //сборка
@@ -47,12 +48,12 @@ namespace DeliveryCore.Management
             }
         }
 
-        public void CompletedOrder(int ID)
+        public void CompleteOrder(int ID)
         {
             if (deliverings.ContainsKey(ID))
             {
                 deliverings[ID].Status = OrderStatus.Completed;
-                deliverings[ID].OrderCompletionDate = DateTime.Now;
+                deliverings[ID].CompleteDate = DateTime.Now;
                 completeds.Add(ID, deliverings[ID]);
                 deliverings.Remove(ID);
             }

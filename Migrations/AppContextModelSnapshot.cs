@@ -202,7 +202,7 @@ namespace DeliveryCore.Migrations
                     b.Property<int?>("MachineId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("OrderCompletionDate")
+                    b.Property<DateTime>("CompleteDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
