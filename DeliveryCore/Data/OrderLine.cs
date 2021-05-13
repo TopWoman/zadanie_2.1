@@ -7,7 +7,7 @@ namespace DeliveryCore.Data
     /// <summary>
     /// Строка заказа
     /// </summary>
-    public class OrderLine
+    public class OrderLine : IOrderLine
     {
         public int Id { get; set; }
         /// <summary>
