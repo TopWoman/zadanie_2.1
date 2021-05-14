@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DeliveryCore.Data
 {
@@ -13,8 +14,16 @@ namespace DeliveryCore.Data
         public DateTime CreateDate { get; set; }
         public DateTime CompleteDate { get; set; } //дата выполнения заказа
         public double Weight { get; set; }
-        //TODO выборка строк ихз завершённых строк
-        public List<OrderLine> OrderLines { get; }
+        //TODO выборка строк из завершённых строк
+        public List<CompletedOrderLine> CompletedOrderLines
+        {
+            get
+            {
+                using AppContext dbContext = new AppContext();
+                return dbContext.CompletedOrderLines.Where(ordLine => ordLine.Id == Id).ToList();
+            }
+            
+        }
         public double Volume { get; set; }
         public double Distance { get; set; }
         public OrderStatus Status { get; set; }

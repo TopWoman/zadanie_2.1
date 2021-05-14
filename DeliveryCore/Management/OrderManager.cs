@@ -7,7 +7,6 @@ using System.Text;
 
 namespace DeliveryCore.Management
 {
-    //TODO ПЕРЕДЕЛАТЬ ЕГО НАХУЙ ПОЛНОСТЬЮ
     class OrderManager
     {
         private readonly AppContext _dbContext;
