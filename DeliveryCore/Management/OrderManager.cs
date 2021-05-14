@@ -42,7 +42,7 @@ namespace DeliveryCore.Management
                     Address1 = ordToCancel.Address1,
                     Address2 = ordToCancel.Address2,
                     CreateDate = ordToCancel.CreateDate,
-                    CanceleDate = DateTime.UtcNow,
+                    CancelDate = DateTime.UtcNow,
                     Weight = ordToCancel.Weight,
                     Volume = ordToCancel.Volume,
                     Distance = ordToCancel.Distance,

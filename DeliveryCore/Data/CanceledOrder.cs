@@ -13,7 +13,7 @@ namespace DeliveryCore.Data
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime CanceleDate { get; set; }
+        public DateTime CancelDate { get; set; }
         public double Weight { get; set; }
 
         public List<OrderLine> OrderLines { get; }
