@@ -5,9 +5,6 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    /// <summary>
-    /// Абстрактный класс
-    /// </summary>
     interface IDeliveryman
     {
         public int Id { get; set; }

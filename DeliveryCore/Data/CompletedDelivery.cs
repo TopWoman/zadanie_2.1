@@ -1,9 +1,6 @@
 ﻿namespace DeliveryCore.Data
 {
-    /// <summary>
-    /// Таблица, показывающая текущие доставки.
-    /// </summary>
-    public class Delivery : IDelivery
+    public class CompletedDelivery : IDelivery
     {
         public int Id { get; set; }
 
@@ -22,7 +19,7 @@
         /// </summary>
         public string DeliveryTypeName { get; set; }
 
-        public Delivery(int deliverId, DeliveryType deliveryType)
+        public CompletedDelivery(int deliverId, DeliveryType deliveryType)
         {
             DeliverId = deliverId;
             DeliveryType = deliveryType;

@@ -1,77 +1,89 @@
 ﻿using DeliveryCore.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace DeliveryCore.Management
 {
+    //TODO ПЕРЕДЕЛАТЬ ЕГО НАХУЙ ПОЛНОСТЬЮ
     class OrderManager
     {
-        public Dictionary<int, Order> assemblys; //сборка
-        public Dictionary<int, Order> canceleds; //отменен
-        public Dictionary<int, Order> deliverings; //доставляется
-        public Dictionary<int, Order> completeds; //выполнен
+        private readonly AppContext _dbContext;
+        public List<Order> Orders => _dbContext.Orders.ToList();
+        public List<CompletedOrder> CompletedOrders => _dbContext.CompletedOrders.ToList();
 
         public OrderManager()
         {
-            assemblys = new Dictionary<int, Order>();
-            canceleds = new Dictionary<int, Order>();
-            deliverings = new Dictionary<int, Order>();
-            completeds = new Dictionary<int, Order>();
+            _dbContext = new AppContext();
         }
 
-        public Order AddOrder (Client client, string address1, string address2, double weight,
-                    double distance, OrderStatus status, bool isfragile) // метод добавления заказа
+        public Order AddOrder(Client client, string address1, string address2, double weight,
+                    double distance, OrderStatus status, bool isFragile) // метод добавления заказа
         {
-            Order newASS = new Order(client, address1, address2, weight, distance, status, isfragile); // создание нового заказа
-            assemblys.Add(newASS.ID, newASS); // добавление ID заказа
-            return newASS;
+            Order newOrder = new Order(client.Id, address1, address2,
+                weight, distance, status, isFragile);
+            _dbContext.Orders.Add(newOrder);
+            _dbContext.SaveChanges();
+            return newOrder;
         }
 
 
 
-        public void CancelOrder(int ID) // метод отмены заказа
+        public CanceledOrder CancelOrder(int id) // метод отмены заказа
         {
-            if (assemblys.ContainsKey(ID) && assemblys[ID].Status == OrderStatus.Assemblys) 
-            { 
-                //проверить работоспособность (как сохранится в canseled)
-                canceleds.Add(ID, assemblys[ID]);
-                assemblys.Remove(ID);
-            }
-
-            if (deliverings.ContainsKey(ID) && deliverings[ID].Status == OrderStatus.Delivering)
+            Order ordToCancel = _dbContext.Orders.Find(id);
+            if (ordToCancel != null)
             {
-                canceleds.Add(ID, deliverings[ID]);
-                deliverings.Remove(ID);
+                CanceledOrder canceledOrder = new CanceledOrder()
+                {
+                    ClientId = ordToCancel.ClientId,
+                    Address1 = ordToCancel.Address1,
+                    Address2 = ordToCancel.Address2,
+                    CreateDate = ordToCancel.CreateDate,
+                    CancelDate = DateTime.UtcNow,
+                    Weight = ordToCancel.Weight,
+                    Volume = ordToCancel.Volume,
+                    Distance = ordToCancel.Distance,
+                    Status = OrderStatus.Completed,
+                    IsFragile = ordToCancel.IsFragile
+                };
+                _dbContext.CanceledOrders.Add(canceledOrder);
+                _dbContext.Orders.Remove(ordToCancel);
+                _dbContext.SaveChanges();
+                return canceledOrder;
             }
+            else
+                throw new ArgumentException($"No order with id ={id}");
         }
 
-        public void CompletedOrder(int ID)
+        public CompletedOrder CompleteOrder(int id)
         {
-            if (deliverings.ContainsKey(ID))
+            Order ordToComplete = _dbContext.Orders.Find(id);
+            if (ordToComplete != null)
             {
-                deliverings[ID].Status = OrderStatus.Completed;
-                deliverings[ID].OrderCompletionDate = DateTime.Now;
-                completeds.Add(ID, deliverings[ID]);
-                deliverings.Remove(ID);
+                CompletedOrder completedOrder = new CompletedOrder()
+                {
+                    ClientId = ordToComplete.ClientId,
+                    Address1 = ordToComplete.Address1,
+                    Address2 = ordToComplete.Address2,
+                    CreateDate = ordToComplete.CreateDate,
+                    CompleteDate = DateTime.UtcNow,
+                    Weight = ordToComplete.Weight,
+                    Volume = ordToComplete.Volume,
+                    Distance = ordToComplete.Distance,
+                    Status = OrderStatus.Completed,
+                    IsFragile = ordToComplete.IsFragile
+                };
+                _dbContext.CompletedOrders.Add(completedOrder);
+                _dbContext.Orders.Remove(ordToComplete);
+                _dbContext.SaveChanges();
+                return completedOrder;
             }
+            else
+                throw new ArgumentException($"No order with id ={id}");
 
         }
-
-        public void Deliver(int ID)
-        {
-            if (assemblys.ContainsKey(ID))
-            {
-                assemblys[ID].Status = OrderStatus.Delivering;
-                deliverings.Add(ID, assemblys[ID]);
-                assemblys.Remove(ID);
-            }
-
-        }
-
-
-
- 
     }
 }

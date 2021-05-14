@@ -5,12 +5,12 @@ using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    class Machine : IDeliveryman
+    public class Machine : IDeliveryman
     {
-        public readonly double CarryingCapacity; //грузоподъемность
-        public readonly double Volume; // вместительность (объём)
-        public readonly string Number; // номер
-        
+        public double CarryingCapacity { get; set; }//грузоподъемность
+        public double Volume { get; set; } // вместимость (объём)
+        public string Number { get; set; } // номер
+
         //TODO сделать таблицу доставки, где будут столбцы: id строки, id курьера, номер заказа.
         //TODO Данная коллекция должна получать выборку из этой таблицы.
         public List<Order> Orders
@@ -71,7 +71,6 @@ namespace DeliveryCore.Data
             CarryingCapacity = carryingCapacity;
             Volume = volume;
             Number = number;
-            Orders = new List<Order>();
         }
 
         public void AddProduct(Order order)

@@ -6,7 +6,8 @@ namespace DeliveryCore.Data
 {
     public class Product
     {
-        public string Name;
+        public int Id { get; set; }
+        public string Name { get; set; }
         private double _weight;
         public double Weight
         {
@@ -19,8 +20,10 @@ namespace DeliveryCore.Data
         }
         public bool IsFragile { get; set; } // галка хрупкий/нехрупкий товар
         
-        public int DimensionsId { get; set; }
-        public Dimensions Dimensions { get; set; }
+        public double Height { get; set; }
+        public double Width { get; set; }
+        public double Length { get; set; }
+        public double Volume { get; set; }
 
         private double _price;
         public double Price 
@@ -33,12 +36,16 @@ namespace DeliveryCore.Data
             }
         }
 
-        public Product (string name, double weight, bool isFragile, Dimensions dimensions, double price)
+        public Product (string name, double weight, bool isFragile, double height, 
+            double width, double length , double price)
         {
             Name = name;
             Weight = weight;
             IsFragile = isFragile;
-            Dimensions = dimensions;
+            Height = height;
+            Width = width;
+            Length = length;
+            Volume = Height * Width * Length;
             Price = price;
         }
 

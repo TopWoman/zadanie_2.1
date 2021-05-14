@@ -13,6 +13,10 @@
         /// <summary>
         /// Почта
         /// </summary>
-        Package
+        Package,
+        /// <summary>
+        /// Сторонняя компания
+        /// </summary>
+        OtherCompany
     }
 }
