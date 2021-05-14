@@ -12,6 +12,7 @@ namespace DeliveryCore.Management
         private readonly AppContext _dbContext;
         public List<Order> Orders => _dbContext.Orders.ToList();
         public List<CompletedOrder> CompletedOrders => _dbContext.CompletedOrders.ToList();
+        public List<CanceledOrder> CanceledOrders => _dbContext.CanceledOrders.ToList();
 
         public OrderManager()
         {
