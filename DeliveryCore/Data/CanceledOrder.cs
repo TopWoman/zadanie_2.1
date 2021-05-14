@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DeliveryCore.Data
 {
-    public class CanceledOrder : IOrder
+    public class CanceledOrder : IOrder<CanceledOrderLine>
     {
         public int Id { get; set; }
 
@@ -16,7 +17,15 @@ namespace DeliveryCore.Data
         public DateTime CancelDate { get; set; }
         public double Weight { get; set; }
 
-        public List<OrderLine> OrderLines { get; }
+        public List<CanceledOrderLine> OrderLines
+        {
+            get
+            {
+                using AppContext dbContext = new AppContext();
+                return dbContext.CanceledOrderLines.Where(ordLine => ordLine.OrderId == Id).ToList();
+            }
+
+        }
 
         public double Volume { get; set; }
 

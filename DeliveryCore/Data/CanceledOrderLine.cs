@@ -1,6 +1,6 @@
 ﻿namespace DeliveryCore.Data
 {
-    public class CompletedOrderLine : IOrderLine
+    public class CanceledOrderLine : IOrderLine
     {
         public int Id { get; set; }
         public int OrderId { get; set; }

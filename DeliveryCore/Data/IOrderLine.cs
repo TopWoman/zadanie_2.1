@@ -8,6 +8,8 @@
         /// Продукт заказа
         /// </summary>
 
+        int OrderId { get; set; }
+
         int ProductId { get; set; }
 
         Product Product { get; }

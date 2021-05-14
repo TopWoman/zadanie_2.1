@@ -48,6 +48,7 @@ namespace DeliveryCore.Data
             get => _cost;
             set => Cost = value;
         }
+        public int OrderId { get; set; }
 
         public OrderLine(int productId, int count)
         {

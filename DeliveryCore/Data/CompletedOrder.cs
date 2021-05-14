@@ -4,23 +4,22 @@ using System.Linq;
 
 namespace DeliveryCore.Data
 {
-    public class CompletedOrder : IOrder
+    public class CompletedOrder : IOrder<CompletedOrderLine>
     {
         public int Id { get; set; }
-        public Client Client { get; }
+        public Client Client { get; set; }
         public int ClientId { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime CompleteDate { get; set; } //дата выполнения заказа
         public double Weight { get; set; }
-        //TODO выборка строк из завершённых строк
-        public List<CompletedOrderLine> CompletedOrderLines
+        public List<CompletedOrderLine> OrderLines
         {
             get
             {
                 using AppContext dbContext = new AppContext();
-                return dbContext.CompletedOrderLines.Where(ordLine => ordLine.Id == Id).ToList();
+                return dbContext.CompletedOrderLines.Where(ordLine => ordLine.OrderId == Id).ToList();
             }
             
         }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
 namespace DeliveryCore.Data
 {
-    public class Order : IOrder
+    public class Order : IOrder<OrderLine>
     {
 
         [NotMapped]
@@ -44,9 +45,15 @@ namespace DeliveryCore.Data
             }
         }
         public int Id { get; set; }
+        public List<OrderLine> OrderLines
+        {
+            get
+            {
+                using AppContext dbContext = new AppContext();
+                return dbContext.OrderLines.Where(ordLine => ordLine.OrderId == Id).ToList();
+            }
 
-        //TODO выборка из строк.
-        public List<OrderLine> OrderLines { get; }// список товаров (коллекция)
+        }
 
         public double Volume
         {
