@@ -19,12 +19,19 @@ namespace DeliveryCore.Management
             _dbContext = new AppContext();
         }
 
-        public Order AddOrder(Client client, string address1, string address2, double weight,
-                    double distance, OrderStatus status, bool isFragile) // метод добавления заказа
+        public Order AddOrder(Client client, List<OrderLine> orderLines, string address1, 
+            string address2, double distance, bool isFragile) // метод добавления заказа
         {
             Order newOrder = new Order(client.Id, address1, address2,
-                weight, distance, status, isFragile);
-            _dbContext.Orders.Add(newOrder);
+                distance, OrderStatus.Accepted, isFragile);
+            _dbContext.Orders.Add(newOrder); // Добавление заказа
+            _dbContext.SaveChanges();
+
+            foreach (var ordLine in orderLines)
+                ordLine.OrderId = newOrder.Id;
+
+            // Добавление строк заказов.
+            _dbContext.OrderLines.AddRange(orderLines);
             _dbContext.SaveChanges();
             return newOrder;
         }
@@ -50,12 +57,23 @@ namespace DeliveryCore.Management
                     IsFragile = ordToCancel.IsFragile
                 };
                 _dbContext.CanceledOrders.Add(canceledOrder);
+                _dbContext.SaveChanges();
+
+                List<CanceledOrderLine> canceledOrderLines = new List<CanceledOrderLine>();
+                foreach (var orderLine in ordToCancel.OrderLines)
+                {
+                    canceledOrderLines.Add(new CanceledOrderLine(orderLine.ProductId, orderLine.Count) { OrderId = canceledOrder.Id });
+                }
+                _dbContext.CanceledOrderLines.AddRange(canceledOrderLines);
+
+                //Переливка строк заказа.
+                foreach (var ordLine in ordToCancel.OrderLines)
+                    ordToCancel.RemoveOrderLine(ordLine);
                 _dbContext.Orders.Remove(ordToCancel);
                 _dbContext.SaveChanges();
                 return canceledOrder;
             }
-            else
-                throw new ArgumentException($"No order with id ={id}");
+            throw new ArgumentException($"No order with id ={id}");
         }
 
         public CompletedOrder CompleteOrder(int id)
@@ -77,12 +95,24 @@ namespace DeliveryCore.Management
                     IsFragile = ordToComplete.IsFragile
                 };
                 _dbContext.CompletedOrders.Add(completedOrder);
+                _dbContext.SaveChanges();
+                // Перенос строк заказов завершённых заказов.
+                List<CompletedOrderLine> completedOrderLines = new List<CompletedOrderLine>();
+                foreach (var orderLine in ordToComplete.OrderLines)
+                {
+                    completedOrderLines.Add(new CompletedOrderLine(orderLine.ProductId, orderLine.Count) { OrderId = completedOrder.Id });
+                }
+                _dbContext.CompletedOrderLines.AddRange(completedOrderLines);
+
+                //Переливка строк заказа.
+                foreach (var ordLine in ordToComplete.OrderLines)
+                    ordToComplete.RemoveOrderLine(ordLine);
+
                 _dbContext.Orders.Remove(ordToComplete);
                 _dbContext.SaveChanges();
                 return completedOrder;
             }
-            else
-                throw new ArgumentException($"No order with id ={id}");
+            throw new ArgumentException($"No order with id ={id}");
 
         }
     }

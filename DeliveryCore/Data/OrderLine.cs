@@ -13,7 +13,7 @@ namespace DeliveryCore.Data
         /// <summary>
         /// Продукт заказа
         /// </summary>
-        
+
         public int ProductId { get; set; }
 
         [NotMapped]
@@ -21,10 +21,8 @@ namespace DeliveryCore.Data
         {
             get
             {
-                using (AppContext dbContext = new AppContext())
-                {
-                    return dbContext.Products.Find(ProductId);
-                }
+                using AppContext dbContext = new AppContext();
+                return dbContext.Products.Find(ProductId);
             }
         }
 
@@ -32,7 +30,7 @@ namespace DeliveryCore.Data
         /// Количество
         /// </summary>
         private int _count;
-        public int Count 
+        public int Count
         {
             get => _count;
             set
@@ -45,14 +43,18 @@ namespace DeliveryCore.Data
         //Стоимость строки заказа = кол-во * цена продукта.
         public double Cost
         {
-            get => _cost;
-            set => Cost = value;
+            get => Cost;
+            set => _cost = value;
         }
         public int OrderId { get; set; }
 
         public OrderLine(int productId, int count)
         {
-            ProductId = productId;
+            using AppContext dbContext = new AppContext();
+            if (dbContext.Products.Find(ProductId) != null)
+                ProductId = productId;
+            else
+                throw new ArgumentException($"No product with id = {productId}");
             Cost = Count * Product.Price;
         }
     }

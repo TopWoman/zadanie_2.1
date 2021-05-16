@@ -16,9 +16,23 @@ namespace DeliveryCore.Management
             _dbContext = new AppContext();
         }
 
-        public Delivery AddDelivery()
+        public Delivery AddDelivery(List<Order> orders, DeliveryType deliveryType)
         {
-            return null;
+            Delivery newDelivery = new Delivery(deliveryType);
+            _dbContext.Deliveries.Add(newDelivery);
+            _dbContext.SaveChanges();
+
+            foreach (var order in orders)
+            {
+                _dbContext.DeliveryLines.Add(new DeliveryLine()
+                {
+                    DeliveryId = newDelivery.Id,
+                    OrderId = order.Id
+                });
+            }
+
+            _dbContext.SaveChanges();
+            return newDelivery;
         }
     }
 }

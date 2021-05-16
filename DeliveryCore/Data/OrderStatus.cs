@@ -9,7 +9,7 @@ namespace DeliveryCore.Data
         Accepted,  // принято
         Completed, // выполнен
         Canceled,  // отменено
-        Assemblys, //сборка
+        Assembling, //сборка
         Delivering  //доставляется
     }
 }

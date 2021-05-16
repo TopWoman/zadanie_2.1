@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace DeliveryCore.Data
 {
@@ -15,10 +13,8 @@ namespace DeliveryCore.Data
         {
             get
             {
-                using (AppContext dbContext = new AppContext())
-                {
-                    return dbContext.Clients.Find(ClientId);
-                }
+                using AppContext dbContext = new AppContext();
+                return dbContext.Clients.Find(ClientId);
             }
         }
         public int ClientId { get; set; }
@@ -26,7 +22,6 @@ namespace DeliveryCore.Data
         public string Address2 { get; set; } // адрес 2
         public DateTime CreateDate { get; set; } //дата создания заказа
 
-        private double _weight; //вес
         public double Weight //вес
         {
             get
@@ -37,11 +32,6 @@ namespace DeliveryCore.Data
                     sum += OrderLine.Product.Weight;
                 }
                 return sum;
-            }
-            set
-            {
-                if (value < 0) _weight = 0;
-                else _weight = value;
             }
         }
         public int Id { get; set; }
@@ -80,28 +70,38 @@ namespace DeliveryCore.Data
         }
         public OrderStatus Status { get; set; } // статус
         public bool IsFragile { get; set; } // хрупкий или нет
+        public void RemoveOrderLine(OrderLine orderLine)
+        {
+            using AppContext dbContext = new AppContext();
+            if (orderLine == null)
+                throw new ArgumentNullException(nameof(orderLine));
+            dbContext.Attach(orderLine);
+            dbContext.OrderLines.Remove(orderLine);
+            dbContext.SaveChanges();
+        }
 
-        public Order(int clientId, string address1, string address2, double weight,
+        public void RemoveOrderLine(int id)
+        {
+            using AppContext dbContext = new AppContext();
+            OrderLine lineToDelete = dbContext.OrderLines.Find(id);
+            if (lineToDelete != null)
+            {
+                dbContext.OrderLines.Remove(lineToDelete);
+                dbContext.SaveChanges();
+            }
+            else throw new ArgumentException($"There is no Order line with id = {id}.");
+        }
+
+        public Order(int clientId, string address1, string address2,
                     double distance, OrderStatus status, bool isFragile)
         {
             ClientId = clientId;
             Address1 = address1;
             Address2 = address2;
-            Weight = weight;
             Distance = distance;
             Status = status;
             IsFragile = isFragile;
             CreateDate = DateTime.UtcNow;
-        }
-
-        //TODO по ид добавляет строку в заказ. Как вариант можно сделать этот метод в самом заказе, тогда в параметрах не будет ID.
-        //добавление продуктов и их кол-во
-        public void AddOrderLine(Product product, int count)
-        {
-            OrderLine orderLine = new OrderLine(product.Id, count);
-
-            OrderLines.Add(orderLine);
-
         }
 
     }

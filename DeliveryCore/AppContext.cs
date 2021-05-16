@@ -21,6 +21,7 @@ namespace DeliveryCore
         public DbSet<Package> Packages { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
+        public DbSet<DeliveryLine> DeliveryLines { get; set; }
         public DbSet<CompletedDelivery> CompleteDeliveries { get; set; }
 
 

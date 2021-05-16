@@ -22,9 +22,8 @@
         /// </summary>
         public string DeliveryTypeName { get; set; }
 
-        public Delivery(int deliverId, DeliveryType deliveryType)
+        public Delivery(DeliveryType deliveryType)
         {
-            DeliverId = deliverId;
             DeliveryType = deliveryType;
             switch (deliveryType)
             {
